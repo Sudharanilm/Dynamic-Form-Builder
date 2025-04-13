@@ -1,0 +1,100 @@
+<section fxLayoutAlign="center center">
+  <div class="container bg-light border-1 rounded-4 p-4" style="max-width:800px; margin: auto;">
+    <p class="p-4" style="font-weight: 600; font-size: 2rem; text-decoration: underline;">Dynamic Form Builder</p>
+  
+    <!-- Field Type Selector -->
+    <div class="d-flex align-items-center gap-3 mb-4">
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="w-auto">
+          <mat-label>Field Type</mat-label>
+          <mat-select
+            [(ngModel)]="fieldType"
+            class="form-control"
+            [disableOptionCentering]="true"
+            style="display: flex; justify-content: space-between; align-items: center;"
+          >
+            <mat-option value="text">Text</mat-option>
+            <mat-option value="textarea">Textarea</mat-option>
+            <mat-option value="dropdown">Dropdown</mat-option>
+            <mat-option value="checkbox">Checkbox</mat-option>
+            <mat-option value="radio">Radio</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      
+    
+      <div class="form-group">
+        <button mat-raised-button color="primary" class="btn btn-primary" (click)="addField()">Add Field</button>
+      </div>
+    </div>
+  
+    <!-- Form Preview -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" style="margin-top: 0rem;" class="p-4">
+      <div *ngFor="let field of fieldList; let i = index" class="mb-4 border p-3 rounded">
+  
+        <!-- Field Config Panel -->
+        <div class="mb-3">
+          <mat-form-field class="w-100">
+            <mat-label>Label</mat-label>
+            <input matInput [(ngModel)]="field.label" (ngModelChange)="updateFieldConfig(i)" name="label-{{i}}" />
+          </mat-form-field>
+  
+          <mat-form-field class="w-100" *ngIf="field.type !== 'checkbox' && field.type !== 'radio'">
+            <mat-label>Placeholder</mat-label>
+            <input matInput [(ngModel)]="field.placeholder" (ngModelChange)="updateFieldConfig(i)" name="placeholder-{{i}}" />
+          </mat-form-field>
+  
+          <mat-checkbox [(ngModel)]="field.required" (change)="updateFieldConfig(i)" name="required-{{i}}">
+            Required
+          </mat-checkbox>
+        </div>
+  
+        <!-- Field Rendering -->
+        <ng-container [ngSwitch]="field.type">
+          <mat-form-field *ngSwitchCase="'text'" appearance="fill" floatLabel="always" class="w-100 mb-2">
+            <mat-label>{{ field.label || 'Enter text' }}</mat-label>
+            <input matInput [formControlName]="field.name" [placeholder]="field.placeholder || field.label" />
+          </mat-form-field>
+  
+          <mat-form-field *ngSwitchCase="'textarea'" appearance="fill" floatLabel="always" class="w-100 mb-2">
+            <mat-label>{{ field.label || 'Enter text' }}</mat-label>
+            <textarea matInput [formControlName]="field.name" [placeholder]="field.placeholder || field.label"></textarea>
+          </mat-form-field>
+  
+          <mat-form-field *ngSwitchCase="'dropdown'" appearance="fill" class="w-100 mb-2">
+            <mat-label>{{ field.label || 'Select an option' }}</mat-label>
+            <mat-select [formControlName]="field.name" [placeholder]="field.placeholder || 'Select an option'">
+              <mat-option *ngFor="let option of field.options" [value]="option">{{ option }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <div *ngSwitchCase="'checkbox'">
+            <mat-checkbox [formControlName]="field.name">{{ field.placeholder }}</mat-checkbox>
+          </div>
+  
+          <div *ngSwitchCase="'radio'">
+            <mat-radio-group [formControlName]="field.name">
+              <mat-radio-button *ngFor="let option of field.options" [value]="option" class="me-2">
+                {{ option }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </ng-container>
+  
+        <button mat-button color="warn" style="background-color: red; margin: 2rem; color: #fff;" type="button" (click)="removeField(i)">
+          Remove
+        </button>
+        
+      </div>
+  
+      <!-- Error Message -->
+      <div *ngIf="showError" class="text-danger mb-2">
+        ⚠️ Please fill out all required fields.
+      </div>
+  
+      <!-- Submit Button -->
+      <button mat-raised-button color="accent" type="submit" [disabled]="form.invalid">Submit</button>
+    </form>
+  </div>
+</section>
