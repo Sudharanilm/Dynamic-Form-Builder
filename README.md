@@ -1,27 +1,43 @@
-# DynamicFormBuilder
+# 🧱 Dynamic Form Builder
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.16.
+An Angular application using Angular Material and Bootstrap that allows users to dynamically create, configure, and render form fields. This is a fully customizable form builder with support for field types like text, textarea, dropdown, checkbox, and radio buttons.
 
-## Development server
+## 🚀 Features
+- Add dynamic form fields
+- Customize label, placeholder, required validation
+- Dropdown and radio support with default options
+- Angular Material form components
+- Bootstrap-based layout
+- Remove fields dynamically
+- Required field validation
+- Submit form and view data in console
+- Clean, standalone component structure
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 📦 Installation
+1. **Clone the repository**
+   git clone https://github.com/your-username/dynamic-form-builder.git
+   cd dynamic-form-builder
 
-## Code scaffolding
+2. **Install dependencies**
+   npm install
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3. **Run the development server**
+    ng serve
 
-## Build
+4. **Open in Browser**
+   http://localhost:4200/
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## ✨ Usage
+1. Select the field type from the dropdown.
+2. Click "Add Field" to insert it into the form preview.
+3. Customize the label, placeholder, and required setting.
+4. Fill the fields and click "Submit".
+5. If the form is valid, submitted data will be shown in the browser console.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 📁 Folder Structure
+src/
+  └── app/
+      └── form-builder/
+          ├── form-builder.component.ts
+          ├── form-builder.component.html
+          ├── form-builder.component.css (optional)
